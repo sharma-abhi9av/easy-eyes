@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <link rel="preload" href="/static/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/static/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="Easy Eyes — Architectural luxury optical and sun eyewear crafted from Japanese titanium and Italian cellulose acetate." />
+  <title>Easy Eyes — Architectural Luxury Eyewear</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="nav-header">
+    <div class="container-luxury nav-inner">
+      <a href="/index.html" class="brand-logo">Easy Eyes</a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="/index.html#catalog" class="nav-link">Collection</a>
+        <a href="/admin.html" id="nav-admin-link" class="nav-link" style="display: none;">Atelier Admin</a>
+        <a href="/login.html" id="nav-auth-link" class="nav-link">Sign In</a>
+        <button type="button" id="nav-logout-btn" class="nav-link" style="display: none;">Logout</button>
+        <a href="/cart.html" class="nav-link" aria-label="Shopping Bag">
+          Bag <span id="nav-cart-count" class="badge-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-luxury">
+    <section class="hero-section">
+      <div>
+        <span class="hero-eyebrow">Autumn / Winter Atelier — Sabae &amp; Milan</span>
+        <h1 class="hero-title">Precision Optics Crafted for Quiet Distinction.</h1>
+        <p class="hero-subtitle">
+          Every Easy Eyes silhouette is milled from aerospace-grade Japanese beta-titanium and cured 8mm Mazzucchelli acetate, fitted with zero-distortion polarized and blue-light optics.
+        </p>
+        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+          <a href="#catalog" class="btn-primary">Explore The Archive</a>
+        </div>
+      </div>
+      <div class="hero-img-wrap">
+        <img src="/static/images/frames/hero.webp"
+             alt="Easy Eyes Signature Gold Titanium Eyewear"
+             width="1200"
+             height="700"
+             fetchpriority="high" />
+      </div>
+    </section>
+
+    <section id="catalog" aria-labelledby="catalog-heading">
+      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-top: 2.5rem;">
+        <h2 id="catalog-heading" class="font-serif" style="font-size: 2rem; font-weight: 600;">The Curated Eyewear Archive</h2>
+        <span id="results-count" class="font-mono" style="font-size: 0.8rem; color: #57534E;">12 Frames Curated</span>
+      </div>
+
+      <div class="filter-bar">
+        <div>
+          <label for="search-input" class="field-label">Search Archive</label>
+          <input type="search" id="search-input" class="input-field" placeholder="Name, SKU, or material..." />
+        </div>
+        <div>
+          <label for="filter-category" class="field-label">Category</label>
+          <select id="filter-category" class="select-field">
+            <option value="">All Categories</option>
+            <option value="SUNGLASSES">Sunglasses</option>
+            <option value="OPTICAL">Optical Frames</option>
+          </select>
+        </div>
+        <div>
+          <label for="filter-shape" class="field-label">Frame Silhouette</label>
+          <select id="filter-shape" class="select-field">
+            <option value="">All Silhouettes</option>
+            <option value="ROUND">Round</option>
+            <option value="SQUARE">Square</option>
+            <option value="AVIATOR">Aviator</option>
+            <option value="CAT_EYE">Cat-Eye</option>
+            <option value="RECTANGLE">Rectangle</option>
+          </select>
+        </div>
+        <div>
+          <label for="filter-material" class="field-label">Material</label>
+          <select id="filter-material" class="select-field">
+            <option value="">All Materials</option>
+            <option value="TITANIUM">Japanese Titanium</option>
+            <option value="ACETATE">Italian Acetate</option>
+            <option value="METAL">Sculpted Metal</option>
+          </select>
+        </div>
+        <div>
+          <label for="sort-select" class="field-label">Sort By</label>
+          <select id="sort-select" class="select-field">
+            <option value="featured">Curator Featured</option>
+            <option value="price_asc">Price: Low to High</option>
+            <option value="price_desc">Price: High to Low</option>
+            <option value="rating_desc">Highest Rated</option>
+          </select>
+        </div>
+        <div>
+          <button type="button" id="reset-filters-btn" class="btn-outline" style="width: 100%; padding: 0.75rem;">Reset</button>
+        </div>
+      </div>
+
+      <div id="product-grid" class="product-grid">
+        <div class="skeleton-box"></div>
+        <div class="skeleton-box"></div>
+        <div class="skeleton-box"></div>
+        <div class="skeleton-box"></div>
+        <div class="skeleton-box"></div>
+        <div class="skeleton-box"></div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-luxury">
+    <div class="container-luxury" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
+      <span>&copy; 2026 Easy Eyes Optical Atelier. All rights reserved.</span>
+      <span class="font-mono">REST API Docs: <a href="/docs" style="color: #121212;">/docs</a></span>
+    </div>
+  </footer>
+
+  <script src="/static/js/api.js" defer></script>
+  <script src="/static/js/catalog.js" defer></script>
+</body>
+</html>

@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <link rel="preload" href="/static/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/static/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="Sign in or create an account at Easy Eyes Luxury Eyewear." />
+  <title>Client &amp; Admin Authentication — Easy Eyes</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="nav-header">
+    <div class="container-luxury nav-inner">
+      <a href="/index.html" class="brand-logo">Easy Eyes</a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="/index.html#catalog" class="nav-link">Collection</a>
+        <a href="/cart.html" class="nav-link">Bag <span id="nav-cart-count" class="badge-count">0</span></a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-luxury" style="padding: 3rem 1.5rem; max-width: 960px;">
+    <section style="background: #fff; border: 1px solid #C5A059; padding: 1.25rem 1.5rem; margin-bottom: 2.5rem;">
+      <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem;">
+        <div>
+          <span class="hero-eyebrow" style="margin-bottom: 0.25rem;">GDG Evaluator Quick Access</span>
+          <p style="font-size: 0.85rem; color: #121212;">
+            <strong>Admin:</strong> <code class="font-mono">admin@easyeyes.com</code> / <code class="font-mono">EasyEyes@Admin2026</code><br />
+            <strong>Customer:</strong> <code class="font-mono">arjun@easyeyes.com</code> / <code class="font-mono">EasyEyes@User2026</code>
+          </p>
+        </div>
+        <div style="display: flex; gap: 0.75rem;">
+          <button type="button" id="fill-admin-btn" class="btn-primary btn-sm">Fill Demo Admin</button>
+          <button type="button" id="fill-customer-btn" class="btn-outline btn-sm">Fill Demo Customer</button>
+        </div>
+      </div>
+    </section>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2.5rem;">
+      <section style="background: #fff; border: 1px solid #E5E2DC; padding: 2rem;">
+        <h1 class="font-serif" style="font-size: 2rem; margin-bottom: 1.25rem;">Sign In</h1>
+        <form id="login-form">
+          <div style="margin-bottom: 1rem;">
+            <label for="login-email" class="field-label">Email Address</label>
+            <input type="email" id="login-email" class="input-field" required autocomplete="email" />
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label for="login-password" class="field-label">Password</label>
+            <input type="password" id="login-password" class="input-field" required maxlength="72" autocomplete="current-password" />
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Sign In to Easy Eyes</button>
+        </form>
+      </section>
+
+      <section style="background: #fff; border: 1px solid #E5E2DC; padding: 2rem;">
+        <h2 class="font-serif" style="font-size: 2rem; margin-bottom: 1.25rem;">Create Client Account</h2>
+        <form id="signup-form">
+          <div style="margin-bottom: 1rem;">
+            <label for="signup-name" class="field-label">Full Name</label>
+            <input type="text" id="signup-name" class="input-field" required minlength="2" autocomplete="name" />
+          </div>
+          <div style="margin-bottom: 1rem;">
+            <label for="signup-email" class="field-label">Email Address</label>
+            <input type="email" id="signup-email" class="input-field" required autocomplete="email" />
+          </div>
+          <div style="margin-bottom: 1.5rem;">
+            <label for="signup-password" class="field-label">Password (8–72 Characters)</label>
+            <input type="password" id="signup-password" class="input-field" required minlength="8" maxlength="72" autocomplete="new-password" />
+          </div>
+          <button type="submit" class="btn-outline" style="width: 100%;">Register Client Account</button>
+        </form>
+      </section>
+    </div>
+  </main>
+
+  <footer class="footer-luxury">
+    <div class="container-luxury">
+      <span>&copy; 2026 Easy Eyes Optical Atelier.</span>
+    </div>
+  </footer>
+
+  <script src="/static/js/api.js" defer></script>
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("fill-admin-btn")?.addEventListener("click", () => {
+        document.getElementById("login-email").value = "admin@easyeyes.com";
+        document.getElementById("login-password").value = "EasyEyes@Admin2026";
+      });
+
+      document.getElementById("fill-customer-btn")?.addEventListener("click", () => {
+        document.getElementById("login-email").value = "arjun@easyeyes.com";
+        document.getElementById("login-password").value = "EasyEyes@User2026";
+      });
+
+      document.getElementById("login-form")?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          const res = await EasyEyes.request("/api/auth/login", {
+            method: "POST",
+            body: JSON.stringify({
+              email: document.getElementById("login-email").value.trim(),
+              password: document.getElementById("login-password").value,
+            }),
+          });
+          EasyEyes.toast("Authenticated. Redirecting...");
+          window.location.href = res.user.role === "ADMIN" ? "/admin.html" : "/index.html";
+        } catch (err) {
+          EasyEyes.toast(err.message, true);
+        }
+      });
+
+      document.getElementById("signup-form")?.addEventListener("submit", async (e) => {
+        e.preventDefault();
+        try {
+          await EasyEyes.request("/api/auth/signup", {
+            method: "POST",
+            body: JSON.stringify({
+              name: document.getElementById("signup-name").value.trim(),
+              email: document.getElementById("signup-email").value.trim(),
+              password: document.getElementById("signup-password").value,
+            }),
+          });
+          EasyEyes.toast("Account created! Redirecting...");
+          window.location.href = "/index.html";
+        } catch (err) {
+          EasyEyes.toast(err.message, true);
+        }
+      });
+    });
+  </script>
+</body>
+</html>

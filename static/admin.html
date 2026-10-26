@@ -1,0 +1,176 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <link rel="preload" href="/static/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/static/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="Easy Eyes Atelier Administration — Manage eyewear inventory and client orders." />
+  <title>Atelier Admin Dashboard — Easy Eyes</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="nav-header">
+    <div class="container-luxury nav-inner">
+      <a href="/index.html" class="brand-logo">Easy Eyes</a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="/index.html#catalog" class="nav-link">Storefront</a>
+        <a href="/admin.html" id="nav-admin-link" class="nav-link">Atelier Admin</a>
+        <a href="/login.html" id="nav-auth-link" class="nav-link">Admin</a>
+        <button type="button" id="nav-logout-btn" class="nav-link">Logout</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-luxury" style="padding: 2.5rem 1.5rem 4rem;">
+    <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; margin-bottom: 2rem;">
+      <div>
+        <span class="hero-eyebrow" style="margin-bottom: 0.25rem;">Role-Based Access Control (ADMIN)</span>
+        <h1 class="font-serif" style="font-size: 2.4rem;">Atelier Inventory &amp; Order Management</h1>
+      </div>
+      <button type="button" id="open-add-product-btn" class="btn-primary">+ Add New Eyewear Frame</button>
+    </div>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1.5rem; margin-bottom: 3rem;">
+      <div style="background: #fff; border: 1px solid #E5E2DC; padding: 1.5rem;">
+        <span class="field-label">Active SKUs in Archive</span>
+        <strong id="stat-total-products" class="font-mono" style="font-size: 1.85rem;">0</strong>
+      </div>
+      <div style="background: #fff; border: 1px solid #E5E2DC; padding: 1.5rem;">
+        <span class="field-label">Paid Client Orders</span>
+        <strong id="stat-total-orders" class="font-mono" style="font-size: 1.85rem;">0</strong>
+      </div>
+      <div style="background: #fff; border: 1px solid #E5E2DC; padding: 1.5rem;">
+        <span class="field-label">Verified Paid Revenue</span>
+        <strong id="stat-total-revenue" class="font-mono" style="font-size: 1.85rem;">₹0</strong>
+      </div>
+    </div>
+
+    <section style="margin-bottom: 3.5rem;">
+      <h2 class="font-serif" style="font-size: 1.75rem; margin-bottom: 1rem;">Eyewear Catalog (Add / Edit / Soft-Delete)</h2>
+      <div class="table-wrap">
+        <table class="luxury-table">
+          <thead>
+            <tr>
+              <th>Preview</th>
+              <th>SKU</th>
+              <th>Frame Name &amp; Specs</th>
+              <th>Price</th>
+              <th>Stock</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody id="admin-products-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section>
+      <h2 class="font-serif" style="font-size: 1.75rem; margin-bottom: 1rem;">Customer Orders &amp; Fulfillment</h2>
+      <div class="table-wrap">
+        <table class="luxury-table">
+          <thead>
+            <tr>
+              <th>Order ID</th>
+              <th>Client &amp; Address</th>
+              <th>Line Items (Snapshotted)</th>
+              <th>Total</th>
+              <th>Payment</th>
+              <th>Fulfillment Status</th>
+            </tr>
+          </thead>
+          <tbody id="admin-orders-tbody"></tbody>
+        </table>
+      </div>
+    </section>
+  </main>
+
+  <div id="product-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+    <div class="modal-card">
+      <h2 id="modal-title" class="font-serif" style="font-size: 1.75rem; margin-bottom: 1.25rem;">Add New Luxury Frame</h2>
+      <form id="product-form">
+        <input type="hidden" id="prod-id" />
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label for="prod-name" class="field-label">Frame Name</label>
+            <input type="text" id="prod-name" class="input-field" required minlength="2" />
+          </div>
+          <div>
+            <label for="prod-sku" class="field-label">Unique SKU</label>
+            <input type="text" id="prod-sku" class="input-field" placeholder="EE-NEW-013" required />
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label for="prod-price" class="field-label">Price (INR)</label>
+            <input type="number" id="prod-price" class="input-field" required min="100" />
+          </div>
+          <div>
+            <label for="prod-stock" class="field-label">Stock Units</label>
+            <input type="number" id="prod-stock" class="input-field" required min="0" />
+          </div>
+          <div>
+            <label for="prod-image" class="field-label">Image URL</label>
+            <input type="text" id="prod-image" class="input-field" value="/static/images/frames/frame-1.webp" required />
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label for="prod-category" class="field-label">Category</label>
+            <select id="prod-category" class="select-field">
+              <option value="SUNGLASSES">SUNGLASSES</option>
+              <option value="OPTICAL">OPTICAL</option>
+            </select>
+          </div>
+          <div>
+            <label for="prod-shape" class="field-label">Frame Shape</label>
+            <select id="prod-shape" class="select-field">
+              <option value="ROUND">ROUND</option>
+              <option value="SQUARE">SQUARE</option>
+              <option value="AVIATOR">AVIATOR</option>
+              <option value="CAT_EYE">CAT_EYE</option>
+              <option value="RECTANGLE">RECTANGLE</option>
+            </select>
+          </div>
+        </div>
+        <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+          <div>
+            <label for="prod-material" class="field-label">Material</label>
+            <select id="prod-material" class="select-field">
+              <option value="TITANIUM">TITANIUM</option>
+              <option value="ACETATE">ACETATE</option>
+              <option value="METAL">METAL</option>
+            </select>
+          </div>
+          <div>
+            <label for="prod-lens" class="field-label">Lens Profile</label>
+            <select id="prod-lens" class="select-field">
+              <option value="POLARIZED">POLARIZED</option>
+              <option value="BLUE_LIGHT">BLUE_LIGHT</option>
+              <option value="TINTED">TINTED</option>
+            </select>
+          </div>
+        </div>
+        <div style="margin-bottom: 1.5rem;">
+          <label for="prod-desc" class="field-label">Editorial Description</label>
+          <textarea id="prod-desc" rows="3" class="textarea-field" required minlength="10"></textarea>
+        </div>
+        <div style="display: flex; gap: 1rem;">
+          <button type="submit" class="btn-primary" style="flex: 1;">Save Frame</button>
+          <button type="button" id="close-product-modal-btn" class="btn-outline">Cancel</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <footer class="footer-luxury">
+    <div class="container-luxury">
+      <span>&copy; 2026 Easy Eyes Optical Atelier.</span>
+    </div>
+  </footer>
+
+  <script src="/static/js/api.js" defer></script>
+  <script src="/static/js/admin.js" defer></script>
+</body>
+</html>

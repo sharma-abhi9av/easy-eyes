@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <link rel="preload" href="/static/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/static/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="Inspect frame specifications, titanium and acetate craftsmanship, and client reviews at Easy Eyes." />
+  <title>Frame Specifications — Easy Eyes</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="nav-header">
+    <div class="container-luxury nav-inner">
+      <a href="/index.html" class="brand-logo">Easy Eyes</a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="/index.html#catalog" class="nav-link">Collection</a>
+        <a href="/admin.html" id="nav-admin-link" class="nav-link" style="display: none;">Atelier Admin</a>
+        <a href="/login.html" id="nav-auth-link" class="nav-link">Sign In</a>
+        <button type="button" id="nav-logout-btn" class="nav-link" style="display: none;">Logout</button>
+        <a href="/cart.html" class="nav-link" aria-label="Shopping Bag">
+          Bag <span id="nav-cart-count" class="badge-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-luxury">
+    <div style="padding-top: 1.5rem;">
+      <a href="/index.html#catalog" class="nav-link">&larr; Back to Archive</a>
+    </div>
+
+    <section id="product-detail-container" class="pdp-grid">
+      <div class="skeleton-box"></div>
+      <div class="skeleton-box"></div>
+    </section>
+
+    <section style="border-top: 1px solid #E5E2DC; padding: 3rem 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem;">
+      <div>
+        <h2 class="font-serif" style="font-size: 1.85rem; margin-bottom: 1rem;">Customer Reviews</h2>
+        <div id="reviews-list"></div>
+      </div>
+
+      <div style="background: #fff; border: 1px solid #E5E2DC; padding: 1.75rem; height: fit-content;">
+        <h3 class="font-serif" style="font-size: 1.5rem; margin-bottom: 1rem;">Record Your Review</h3>
+        <form id="review-form">
+          <div style="margin-bottom: 1rem;">
+            <label for="review-rating" class="field-label">Rating (1 to 5 Stars)</label>
+            <select id="review-rating" class="select-field" required>
+              <option value="5">★★★★★ — Exceptional (5/5)</option>
+              <option value="4">★★★★☆ — Distinguished (4/5)</option>
+              <option value="3">★★★☆☆ — Satisfactory (3/5)</option>
+              <option value="2">★★☆☆☆ — Subpar (2/5)</option>
+              <option value="1">★☆☆☆☆ — Unacceptable (1/5)</option>
+            </select>
+          </div>
+          <div style="margin-bottom: 1.25rem;">
+            <label for="review-comment" class="field-label">Your Critique</label>
+            <textarea id="review-comment" rows="3" class="textarea-field" placeholder="Share your experience with the fit, balance, and lens clarity..." required minlength="3"></textarea>
+          </div>
+          <button type="submit" class="btn-primary" style="width: 100%;">Publish Review</button>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer-luxury">
+    <div class="container-luxury">
+      <span>&copy; 2026 Easy Eyes Optical Atelier.</span>
+    </div>
+  </footer>
+
+  <script src="/static/js/api.js" defer></script>
+  <script src="/static/js/product.js" defer></script>
+</body>
+</html>

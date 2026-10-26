@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="icon" href="data:," />
+  <link rel="preload" href="/static/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/static/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin />
+  <meta name="description" content="Review your selected Easy Eyes frames, complete checkout via Razorpay, and track your orders." />
+  <title>Your Shopping Bag &amp; Checkout — Easy Eyes</title>
+  <link rel="stylesheet" href="/static/css/styles.css" />
+</head>
+<body>
+  <header class="nav-header">
+    <div class="container-luxury nav-inner">
+      <a href="/index.html" class="brand-logo">Easy Eyes</a>
+      <nav class="nav-links" aria-label="Primary Navigation">
+        <a href="/index.html#catalog" class="nav-link">Collection</a>
+        <a href="/admin.html" id="nav-admin-link" class="nav-link" style="display: none;">Atelier Admin</a>
+        <a href="/login.html" id="nav-auth-link" class="nav-link">Sign In</a>
+        <button type="button" id="nav-logout-btn" class="nav-link" style="display: none;">Logout</button>
+        <a href="/cart.html" class="nav-link" aria-label="Shopping Bag">
+          Bag <span id="nav-cart-count" class="badge-count">0</span>
+        </a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container-luxury" style="padding-top: 2.5rem; padding-bottom: 4rem;">
+    <h1 class="font-serif" style="font-size: 2.4rem; margin-bottom: 2rem;">Your Atelier Bag &amp; Checkout</h1>
+
+    <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(320px, 1fr)); gap: 2.5rem; align-items: start;">
+      <section aria-label="Selected Frames">
+        <div id="cart-items-container"></div>
+      </section>
+
+      <aside style="background: #fff; border: 1px solid #E5E2DC; padding: 1.75rem;">
+        <h2 class="font-serif" style="font-size: 1.6rem; margin-bottom: 1.25rem;">Order Summary</h2>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 0.6rem; font-size: 0.9rem;">
+          <span>Subtotal</span>
+          <span id="cart-subtotal" class="font-mono">₹0</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; margin-bottom: 1rem; font-size: 0.9rem; color: #57534E;">
+          <span>Insured Courier Delivery</span>
+          <span>Complimentary</span>
+        </div>
+        <div style="display: flex; justify-content: space-between; border-top: 1px solid #E5E2DC; padding-top: 1rem; margin-bottom: 1.5rem; font-weight: 600;">
+          <span>Total (INR)</span>
+          <span id="cart-total" class="font-mono" style="font-size: 1.2rem;">₹0</span>
+        </div>
+
+        <form id="checkout-form">
+          <div style="margin-bottom: 1.25rem;">
+            <label for="shipping-address" class="field-label">Delivery Address &amp; Postal Code</label>
+            <textarea id="shipping-address" rows="3" class="textarea-field" placeholder="Full Name, Street Address, City, State, PIN Code..." required minlength="10"></textarea>
+          </div>
+          <button type="submit" id="checkout-submit-btn" class="btn-primary" style="width: 100%;">
+            Proceed to Razorpay Checkout
+          </button>
+        </form>
+      </aside>
+    </div>
+
+    <section style="margin-top: 4rem; border-top: 1px solid #E5E2DC; padding-top: 2.5rem;">
+      <h2 class="font-serif" style="font-size: 1.85rem; margin-bottom: 1.25rem;">Your Past Orders</h2>
+      <div id="orders-history-container"></div>
+    </section>
+  </main>
+
+  <div id="test-payment-modal" class="modal-backdrop" role="dialog" aria-modal="true" aria-labelledby="sim-modal-title">
+    <div class="modal-card">
+      <span class="hero-eyebrow">Razorpay Test Mode Sandbox</span>
+      <h2 id="sim-modal-title" class="font-serif" style="font-size: 1.75rem; margin-bottom: 0.75rem;">Authorize Test Transaction</h2>
+      <p style="font-size: 0.875rem; color: #57534E; margin-bottom: 1.25rem;">
+        Add your <code class="font-mono">rzp_test_</code> key in <code class="font-mono">.env</code> to open the live Razorpay Checkout popup, or click below to complete local sandbox verification.
+      </p>
+      <div style="background: #FAF8F5; border: 1px solid #E5E2DC; padding: 1rem; margin-bottom: 1.5rem; font-size: 0.85rem;">
+        <div>Order Reference: <strong id="sim-order-ref" class="font-mono"></strong></div>
+        <div style="margin-top: 0.4rem;">Amount Payable: <strong id="sim-order-amount" class="font-mono"></strong></div>
+      </div>
+      <div style="display: flex; gap: 1rem;">
+        <button type="button" id="confirm-sim-payment-btn" class="btn-primary" style="flex: 1;">Authorize Test Payment</button>
+        <button type="button" id="close-sim-modal-btn" class="btn-outline">Cancel</button>
+      </div>
+    </div>
+  </div>
+
+  <footer class="footer-luxury">
+    <div class="container-luxury">
+      <span>&copy; 2026 Easy Eyes Optical Atelier.</span>
+    </div>
+  </footer>
+
+  <script src="/static/js/api.js" defer></script>
+  <script src="/static/js/cart.js" defer></script>
+</body>
+</html>

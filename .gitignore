@@ -1,0 +1,9 @@
+venv/
+.venv/
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+easy_eyes.db
+easy_eyes.db-journal
+.DS_Store

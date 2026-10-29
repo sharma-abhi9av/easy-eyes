@@ -4,121 +4,138 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="icon" href="data:," />
-  <link rel="preload" href="/static/fonts/inter-var.woff2" as="font" type="font/woff2" crossorigin />
-  <link rel="preload" href="/static/fonts/cormorant-600.woff2" as="font" type="font/woff2" crossorigin />
-  <meta name="description" content="Easy Eyes — Architectural luxury optical and sun eyewear crafted from Japanese titanium and Italian cellulose acetate." />
-  <title>Easy Eyes — Architectural Luxury Eyewear</title>
-  <link rel="stylesheet" href="/static/css/styles.css" />
+  <link rel="preload" href="/static/fonts/anton.woff2" as="font" type="font/woff2" crossorigin />
+  <link rel="preload" href="/static/images/campaign/portrait-center.webp" as="image" type="image/webp" fetchpriority="high" />
+  <meta name="description" content="Easy Eyes — considered eyewear for a different point of view. Explore sunglasses and optical frames." />
+  <title>Easy Eyes — Elevate Your Look</title>
+  <link rel="stylesheet" href="/static/css/styles.css?v=20261029-4" />
+  <script>if ('IntersectionObserver' in window && !matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('motion-ready');</script>
 </head>
-<body>
-  <header class="nav-header">
-    <div class="container-luxury nav-inner">
-      <a href="/index.html" class="brand-logo">Easy Eyes</a>
-      <nav class="nav-links" aria-label="Primary Navigation">
-        <a href="/index.html#catalog" class="nav-link">Collection</a>
-        <a href="/admin.html" id="nav-admin-link" class="nav-link" style="display: none;">Atelier Admin</a>
-        <a href="/login.html" id="nav-auth-link" class="nav-link">Sign In</a>
-        <button type="button" id="nav-logout-btn" class="nav-link" style="display: none;">Logout</button>
-        <a href="/cart.html" class="nav-link" aria-label="Shopping Bag">
-          Bag <span id="nav-cart-count" class="badge-count">0</span>
-        </a>
-      </nav>
-    </div>
+<body class="home-page">
+  <header class="site-header">
+    <nav class="site-nav" aria-label="Primary navigation">
+      <div class="site-nav-left">
+        <a href="#catalog">Shop All</a>
+        <a href="#story">About Us</a>
+        <a href="#contact">Contact Us</a>
+        <a href="/admin.html" id="nav-admin-link" style="display:none;">Admin</a>
+      </div>
+      <a href="/index.html" class="site-wordmark" aria-label="Easy Eyes home">EASY EYES</a>
+      <div class="site-nav-right">
+        <a href="/login.html" id="nav-auth-link">Log In</a>
+        <button type="button" id="nav-logout-btn" style="display:none;">Logout</button>
+        <a href="/cart.html" aria-label="Shopping bag">Cart (<span id="nav-cart-count">0</span>)</a>
+      </div>
+    </nav>
   </header>
 
-  <main class="container-luxury">
-    <section class="hero-section">
-      <div>
-        <span class="hero-eyebrow">Autumn / Winter Atelier — Sabae &amp; Milan</span>
-        <h1 class="hero-title">Precision Optics Crafted for Quiet Distinction.</h1>
-        <p class="hero-subtitle">
-          Every Easy Eyes silhouette is milled from aerospace-grade Japanese beta-titanium and cured 8mm Mazzucchelli acetate, fitted with zero-distortion polarized and blue-light optics.
-        </p>
-        <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
-          <a href="#catalog" class="btn-primary">Explore The Archive</a>
-        </div>
+  <main>
+    <section class="reference-hero" aria-labelledby="hero-heading">
+      <div class="hero-stage">
+        <img class="hero-photo hero-photo-left" src="/static/images/campaign/portrait-left.webp" alt="Model wearing dark sunglasses and a cream blazer" width="600" height="800" fetchpriority="low" decoding="async" />
+        <img class="hero-photo hero-photo-center" src="/static/images/campaign/portrait-center.webp" alt="Model in sculptural dark sunglasses and a cream jacket" width="900" height="1200" fetchpriority="high" decoding="async" />
+        <img class="hero-photo hero-photo-right" src="/static/images/campaign/frames-right.avif" alt="Tortoiseshell sunglasses on a sunlit stone plinth" width="464" height="472" fetchpriority="low" decoding="async" />
+        <h1 id="hero-heading">ELEVATE YOUR LOOK</h1>
       </div>
-      <div class="hero-img-wrap">
-        <img src="/static/images/frames/hero.webp"
-             alt="Easy Eyes Signature Gold Titanium Eyewear"
-             width="1200"
-             height="700"
-             fetchpriority="high" />
+      <div class="hero-after">
+        <p>Chic design meets quality in Easy Eyes eyewear—sophisticated, stylish, and perfectly functional.</p>
+        <a href="#catalog" class="reference-button">Shop Now <span aria-hidden="true">↗</span></a>
       </div>
     </section>
 
-    <section id="catalog" aria-labelledby="catalog-heading">
-      <div style="display: flex; justify-content: space-between; align-items: baseline; flex-wrap: wrap; margin-top: 2.5rem;">
-        <h2 id="catalog-heading" class="font-serif" style="font-size: 2rem; font-weight: 600;">The Curated Eyewear Archive</h2>
-        <span id="results-count" class="font-mono" style="font-size: 0.8rem; color: #57534E;">12 Frames Curated</span>
-      </div>
-
-      <div class="filter-bar">
-        <div>
-          <label for="search-input" class="field-label">Search Archive</label>
-          <input type="search" id="search-input" class="input-field" placeholder="Name, SKU, or material..." />
-        </div>
-        <div>
-          <label for="filter-category" class="field-label">Category</label>
-          <select id="filter-category" class="select-field">
-            <option value="">All Categories</option>
-            <option value="SUNGLASSES">Sunglasses</option>
-            <option value="OPTICAL">Optical Frames</option>
-          </select>
-        </div>
-        <div>
-          <label for="filter-shape" class="field-label">Frame Silhouette</label>
-          <select id="filter-shape" class="select-field">
-            <option value="">All Silhouettes</option>
-            <option value="ROUND">Round</option>
-            <option value="SQUARE">Square</option>
-            <option value="AVIATOR">Aviator</option>
-            <option value="CAT_EYE">Cat-Eye</option>
-            <option value="RECTANGLE">Rectangle</option>
-          </select>
-        </div>
-        <div>
-          <label for="filter-material" class="field-label">Material</label>
-          <select id="filter-material" class="select-field">
-            <option value="">All Materials</option>
-            <option value="TITANIUM">Japanese Titanium</option>
-            <option value="ACETATE">Italian Acetate</option>
-            <option value="METAL">Sculpted Metal</option>
-          </select>
-        </div>
-        <div>
-          <label for="sort-select" class="field-label">Sort By</label>
-          <select id="sort-select" class="select-field">
-            <option value="featured">Curator Featured</option>
-            <option value="price_asc">Price: Low to High</option>
-            <option value="price_desc">Price: High to Low</option>
-            <option value="rating_desc">Highest Rated</option>
-          </select>
-        </div>
-        <div>
-          <button type="button" id="reset-filters-btn" class="btn-outline" style="width: 100%; padding: 0.75rem;">Reset</button>
+    <section id="catalog" class="reference-products" aria-labelledby="catalog-heading">
+      <div class="products-heading" data-reveal>
+        <h2 id="catalog-heading">PRODUCTS</h2>
+        <div class="product-controls">
+          <span id="results-count" aria-live="polite">12 Frames Curated</span>
+          <button type="button" class="product-arrow" id="products-prev" aria-label="Previous products">←</button>
+          <button type="button" class="product-arrow" id="products-next" aria-label="Next products">→</button>
         </div>
       </div>
+      <div id="product-grid" class="product-grid" tabindex="0" aria-label="Eyewear collection" data-reveal>
+        <div class="skeleton-box"></div><div class="skeleton-box"></div><div class="skeleton-box"></div>
+      </div>
+      <details class="collection-filters">
+        <summary>Explore &amp; filter the collection <span aria-hidden="true">＋</span></summary>
+        <div class="filter-bar">
+          <div><label for="search-input" class="field-label">Search</label><input type="search" id="search-input" class="input-field" placeholder="Name, SKU, or material..." /></div>
+          <div><label for="filter-category" class="field-label">Category</label><select id="filter-category" class="select-field"><option value="">All Categories</option><option value="SUNGLASSES">Sunglasses</option><option value="OPTICAL">Optical Frames</option></select></div>
+          <div><label for="filter-shape" class="field-label">Shape</label><select id="filter-shape" class="select-field"><option value="">All Silhouettes</option><option value="ROUND">Round</option><option value="SQUARE">Square</option><option value="AVIATOR">Aviator</option><option value="CAT_EYE">Cat-Eye</option><option value="RECTANGLE">Rectangle</option></select></div>
+          <div><label for="filter-material" class="field-label">Material</label><select id="filter-material" class="select-field"><option value="">All Materials</option><option value="TITANIUM">Japanese Titanium</option><option value="ACETATE">Italian Acetate</option><option value="METAL">Sculpted Metal</option></select></div>
+          <div><label for="sort-select" class="field-label">Sort By</label><select id="sort-select" class="select-field"><option value="featured">Curator Featured</option><option value="price_asc">Price: Low to High</option><option value="price_desc">Price: High to Low</option><option value="rating_desc">Highest Rated</option></select></div>
+          <div><button type="button" id="reset-filters-btn" class="btn-outline">Reset</button></div>
+        </div>
+      </details>
+    </section>
 
-      <div id="product-grid" class="product-grid">
-        <div class="skeleton-box"></div>
-        <div class="skeleton-box"></div>
-        <div class="skeleton-box"></div>
-        <div class="skeleton-box"></div>
-        <div class="skeleton-box"></div>
-        <div class="skeleton-box"></div>
+    <section id="story" class="reference-story" aria-labelledby="story-heading">
+      <div class="story-head" data-reveal>
+        <h2 id="story-heading">OUR STORY</h2>
+        <img src="/static/images/campaign/story-portrait.avif" alt="Portrait of a model in warm toned sunglasses" width="340" height="394" loading="lazy" decoding="async" />
+      </div>
+      <div class="story-copy" data-reveal>
+        <p>At Easy Eyes, we blend fashion and function to offer a curated selection of eyewear. Our collection brings together silhouettes for every point of view, from retro shapes to modern design.</p>
+        <a href="#sunglasses" class="reference-button">Learn More</a>
+      </div>
+    </section>
+
+    <section id="sunglasses" class="reference-sunglasses" aria-labelledby="sunglasses-heading">
+      <div class="sunglasses-intro" data-reveal>
+        <h2 id="sunglasses-heading">OUR SUNGLASSES</h2>
+        <p>Discover frames that combine style and quality. From vintage inspired shapes to clean modern lines, each pair is designed to elevate your look.</p>
+      </div>
+      <div class="feature-grid">
+        <div data-reveal><h3>Retro Styles</h3><p>Classic shapes bring a touch of nostalgia to your everyday look.</p></div>
+        <div data-reveal><h3>Modern Design</h3><p>Lightweight frames with a sharp point of view and lasting comfort.</p></div>
+        <div data-reveal><h3>Outdoor Essentials</h3><p>Find your next pair for bright days and new places.</p></div>
+        <div data-reveal><h3>Exclusive Collection</h3><p>Considered details for the moments when you want to stand apart.</p></div>
+      </div>
+      <a href="#catalog" class="reference-button">Shop Now</a>
+    </section>
+
+    <div class="reference-banner" aria-label="Model wearing statement sunglasses in sunlight">
+      <img src="/static/images/campaign/wide-banner.webp" alt="Model in white cat-eye sunglasses against a blue sky" width="1600" height="812" loading="lazy" decoding="async" />
+    </div>
+
+    <section class="reference-faq" aria-labelledby="faq-heading">
+      <div data-reveal><h2 id="faq-heading">FAQs</h2><p>Have a question about your frames or order? Here are a few places to start.</p></div>
+      <div class="faq-list">
+        <div data-reveal><h3>Shipping and Delivery</h3><p>View delivery details and tracking information when you check out.</p></div>
+        <div data-reveal><h3>Returns and Exchanges</h3><p>Get in touch with our team if a frame isn't the right fit.</p></div>
+        <div data-reveal><h3>Product Care Tips</h3><p>Keep your eyewear protected in its case and clean the lenses with a soft cloth.</p></div>
+      </div>
+    </section>
+
+    <section class="reference-offers" aria-labelledby="offers-heading">
+      <div class="offers-panel" data-reveal>
+        <h2 id="offers-heading">SPECIAL OFFERS</h2>
+        <h3>Find your next frame</h3>
+        <p>Explore the Easy Eyes collection and discover the silhouette that feels like yours.</p>
+        <a href="#catalog" class="reference-button">Explore Frames</a>
+      </div>
+    </section>
+
+    <section id="contact" class="reference-contact" aria-labelledby="contact-heading">
+      <img src="/static/images/campaign/contact-gallery.webp" alt="A warm eyewear gallery with illuminated display shelves" width="900" height="1034" loading="lazy" decoding="async" />
+      <div class="contact-panel" data-reveal>
+        <h2 id="contact-heading">CONTACT US</h2>
+        <div class="contact-card">
+          <p>Looking for the right shape? Explore the collection, or sign in to keep your favourites close.</p>
+          <a href="#catalog" class="reference-button">Shop All</a>
+          <a href="/login.html" class="contact-account-link">Your account ↗</a>
+        </div>
       </div>
     </section>
   </main>
 
-  <footer class="footer-luxury">
-    <div class="container-luxury" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 1rem;">
-      <span>&copy; 2026 Easy Eyes Optical Atelier. All rights reserved.</span>
-      <span class="font-mono">REST API Docs: <a href="/docs" style="color: #121212;">/docs</a></span>
-    </div>
+  <footer class="reference-footer">
+    <div><a href="/index.html" class="footer-brand">EASY EYES</a><p>Stay connected to a different point of view.</p></div>
+    <div><a href="#catalog">Shop All</a><a href="#story">Our Story</a><a href="/login.html">Your Account</a><a href="/cart.html">Your Bag</a></div>
+    <small>© 2026 Easy Eyes Optical Atelier.</small>
   </footer>
 
   <script src="/static/js/api.js" defer></script>
   <script src="/static/js/catalog.js" defer></script>
+  <script src="/static/js/home.js?v=20261029-4" defer></script>
 </body>
 </html>

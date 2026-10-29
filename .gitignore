@@ -7,3 +7,5 @@ __pycache__/
 easy_eyes.db
 easy_eyes.db-journal
 .DS_Store
+.vercel
+.env.local
